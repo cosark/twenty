@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import { css, useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
-import { differenceInSeconds, format } from 'date-fns';
-import { AnimatePresence, motion } from 'framer-motion';
+import { format } from 'date-fns';
 
+import { CalendarUpcomingEventIndicator } from '@/activities/calendar/components/CalendarUpcomingEventIndicator';
+import { CalendarContext } from '@/activities/calendar/contexts/CalendarContext';
 import { CalendarEvent } from '@/activities/calendar/types/CalendarEvent';
 import { getCalendarEventEndDate } from '@/activities/calendar/utils/getCalendarEventEndDate';
 import { isPastCalendarEvent } from '@/activities/calendar/utils/isPastCalendarEvent';
@@ -14,8 +15,8 @@ import { CardContent } from '@/ui/layout/card/components/CardContent';
 type CalendarEventRowProps = {
   calendarEvent: CalendarEvent;
   className?: string;
-  isNextEvent?: boolean;
-  onEventEnd?: () => void;
+  isFirstEventOfDay?: boolean;
+  isLastEventOfDay?: boolean;
 };
 
 const StyledContainer = styled.div`
@@ -90,48 +91,24 @@ const StyledVisibilityCardContent = styled(CardContent)`
   background-color: ${({ theme }) => theme.background.transparent.lighter};
 `;
 
-const StyledNextEventIndicator = styled(motion.div)`
-  align-items: center;
-  background-color: ${({ theme }) => theme.font.color.danger};
-  display: inline-flex;
-  height: 1.5px;
-  left: 0;
-  position: absolute;
-  right: 0;
-  border-radius: ${({ theme }) => theme.border.radius.sm};
-
-  &::before {
-    background-color: ${({ theme }) => theme.font.color.danger};
-    border-radius: 1px;
-    content: '';
-    display: block;
-    height: ${({ theme }) => theme.spacing(1)};
-    width: ${({ theme }) => theme.spacing(1)};
-  }
-`;
-
 export const CalendarEventRow = ({
   calendarEvent,
   className,
-  isNextEvent,
-  onEventEnd,
+  isFirstEventOfDay,
+  isLastEventOfDay,
 }: CalendarEventRowProps) => {
   const theme = useTheme();
-  const [isPastEvent, setIsPastEvent] = useState(
-    isPastCalendarEvent(calendarEvent),
-  );
 
+  const { upcomingCalendarEvent } = useContext(CalendarContext);
+  const isUpcoming = upcomingCalendarEvent?.id === calendarEvent?.id;
+
+  const isPastEvent = isPastCalendarEvent(calendarEvent);
   const endsAt = getCalendarEventEndDate(calendarEvent);
+
   const startTimeLabel = calendarEvent.isFullDay
     ? 'All day'
     : format(calendarEvent.startsAt, 'HH:mm');
   const endTimeLabel = calendarEvent.isFullDay ? '' : format(endsAt, 'HH:mm');
-
-  const nextEventIndicatorVariants = {
-    ended: { opacity: 0, top: theme.spacing(-1.5) },
-    justEnded: { opacity: 1, top: theme.spacing(-1.5) },
-    next: { top: `calc(100% + ${theme.spacing(1.5)})` },
-  };
 
   return (
     <StyledContainer className={className}>
@@ -162,25 +139,13 @@ export const CalendarEventRow = ({
           </StyledTitle>
         )}
       </StyledLabels>
-      <AnimatePresence>
-        {isNextEvent && (
-          <StyledNextEventIndicator
-            initial="next"
-            animate="justEnded"
-            exit="ended"
-            transition={{
-              delay: differenceInSeconds(endsAt, Date.now()),
-              duration: theme.animation.duration.normal,
-              opacity: { delay: 0, duration: theme.animation.duration.normal },
-            }}
-            onAnimationComplete={() => {
-              onEventEnd?.();
-              setIsPastEvent(true);
-            }}
-            variants={nextEventIndicatorVariants}
-          />
-        )}
-      </AnimatePresence>
+      {!isPastEvent && isUpcoming && (
+        <CalendarUpcomingEventIndicator
+          calendarEvent={calendarEvent}
+          isFirstEventOfDay={isFirstEventOfDay}
+          isLastEventOfDay={isLastEventOfDay}
+        />
+      )}
     </StyledContainer>
   );
 };

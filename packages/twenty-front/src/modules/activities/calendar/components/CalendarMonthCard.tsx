@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import { startOfDay } from 'date-fns';
 
 import { CalendarDayCardContent } from '@/activities/calendar/components/CalendarDayCardContent';
@@ -9,6 +10,10 @@ import { sortDesc } from '~/utils/sort';
 type CalendarMonthCardProps = {
   calendarEvents: CalendarEvent[];
 };
+
+const StyledCard = styled(Card)`
+  overflow: visible;
+`;
 
 export const CalendarMonthCard = ({
   calendarEvents,
@@ -22,7 +27,7 @@ export const CalendarMonthCard = ({
     .sort(sortDesc);
 
   return (
-    <Card fullWidth>
+    <StyledCard fullWidth>
       {sortedDayTimes.map((dayTime, index) => {
         const dayCalendarEvents = calendarEventsByDayTime[dayTime];
 
@@ -36,6 +41,6 @@ export const CalendarMonthCard = ({
           )
         );
       })}
-    </Card>
+    </StyledCard>
   );
 };
