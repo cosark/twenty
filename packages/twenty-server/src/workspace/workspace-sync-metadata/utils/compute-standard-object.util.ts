@@ -26,6 +26,8 @@ export const computeStandardObject = (
         fields.push({
           ...data,
           ...rest,
+          // TODO: Add standardIf for dynamic field metadata ?
+          standardId: '',
           defaultValue: null,
           targetColumnMap: {},
         });
@@ -33,6 +35,8 @@ export const computeStandardObject = (
         // Foreign key
         fields.push({
           ...rest,
+          // TODO: What should we generate here, and id based on the standardId of the relation field ?
+          standardId: '',
           name: joinColumn,
           type: FieldMetadataType.UUID,
           label: `${data.label} ID (foreign key)`,

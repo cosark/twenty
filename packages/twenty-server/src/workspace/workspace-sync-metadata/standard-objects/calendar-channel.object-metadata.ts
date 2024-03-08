@@ -1,5 +1,7 @@
 import { FeatureFlagKeys } from 'src/core/feature-flag/feature-flag.entity';
 import { FieldMetadataType } from 'src/metadata/field-metadata/field-metadata.entity';
+import { calendarChannelStandardFieldIds } from 'src/workspace/workspace-sync-metadata/constants/standard-field-ids';
+import { standardObjectIds } from 'src/workspace/workspace-sync-metadata/constants/standard-object-ids';
 import { FieldMetadata } from 'src/workspace/workspace-sync-metadata/decorators/field-metadata.decorator';
 import { Gate } from 'src/workspace/workspace-sync-metadata/decorators/gate.decorator';
 import { IsSystem } from 'src/workspace/workspace-sync-metadata/decorators/is-system.decorator';
@@ -13,6 +15,7 @@ export enum CalendarChannelVisibility {
 }
 
 @ObjectMetadata({
+  standardId: standardObjectIds.calendarChannel,
   namePlural: 'calendarChannels',
   labelSingular: 'Calendar Channel',
   labelPlural: 'Calendar Channels',
@@ -25,6 +28,7 @@ export enum CalendarChannelVisibility {
 })
 export class CalendarChannelObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
+    standardId: calendarChannelStandardFieldIds.connectedAccount,
     type: FieldMetadataType.RELATION,
     label: 'Connected Account',
     description: 'Connected Account',
@@ -34,6 +38,7 @@ export class CalendarChannelObjectMetadata extends BaseObjectMetadata {
   connectedAccount: ConnectedAccountObjectMetadata;
 
   @FieldMetadata({
+    standardId: calendarChannelStandardFieldIds.handle,
     type: FieldMetadataType.TEXT,
     label: 'Handle',
     description: 'Handle',
@@ -42,6 +47,7 @@ export class CalendarChannelObjectMetadata extends BaseObjectMetadata {
   handle: string;
 
   @FieldMetadata({
+    standardId: calendarChannelStandardFieldIds.visibility,
     type: FieldMetadataType.SELECT,
     label: 'Visibility',
     description: 'Visibility',
@@ -65,6 +71,7 @@ export class CalendarChannelObjectMetadata extends BaseObjectMetadata {
   visibility: string;
 
   @FieldMetadata({
+    standardId: calendarChannelStandardFieldIds.isContactAutoCreationEnabled,
     type: FieldMetadataType.BOOLEAN,
     label: 'Is Contact Auto Creation Enabled',
     description: 'Is Contact Auto Creation Enabled',
@@ -74,6 +81,7 @@ export class CalendarChannelObjectMetadata extends BaseObjectMetadata {
   isContactAutoCreationEnabled: boolean;
 
   @FieldMetadata({
+    standardId: calendarChannelStandardFieldIds.isSyncEnabled,
     type: FieldMetadataType.BOOLEAN,
     label: 'Is Sync Enabled',
     description: 'Is Sync Enabled',
@@ -83,6 +91,7 @@ export class CalendarChannelObjectMetadata extends BaseObjectMetadata {
   isSyncEnabled: boolean;
 
   @FieldMetadata({
+    standardId: calendarChannelStandardFieldIds.syncCursor,
     type: FieldMetadataType.TEXT,
     label: 'Sync Cursor',
     description:

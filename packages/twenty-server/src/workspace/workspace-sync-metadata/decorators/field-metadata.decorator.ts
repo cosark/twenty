@@ -36,6 +36,7 @@ export function FieldMetadata<T extends FieldMetadataType>(
         ),
         ...(joinColumn && restParams.type === FieldMetadataType.RELATION
           ? {
+              // TODO: Should we generate a standardIf for the foreign key ?
               [joinColumn]: generateFieldMetadata<FieldMetadataType.UUID>(
                 {
                   ...restParams,

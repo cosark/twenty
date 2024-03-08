@@ -11,8 +11,11 @@ import { IsSystem } from 'src/workspace/workspace-sync-metadata/decorators/is-sy
 import { ObjectMetadata } from 'src/workspace/workspace-sync-metadata/decorators/object-metadata.decorator';
 import { BaseObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/base.object-metadata';
 import { CalendarEventAttendeeObjectMetadata } from 'src/workspace/workspace-sync-metadata/standard-objects/calendar-event-attendee.object-metadata';
+import { standardObjectIds } from 'src/workspace/workspace-sync-metadata/constants/standard-object-ids';
+import { calendarEventStandardFieldIds } from 'src/workspace/workspace-sync-metadata/constants/standard-field-ids';
 
 @ObjectMetadata({
+  standardId: standardObjectIds.calendarEvent,
   namePlural: 'calendarEvents',
   labelSingular: 'Calendar event',
   labelPlural: 'Calendar events',
@@ -25,6 +28,7 @@ import { CalendarEventAttendeeObjectMetadata } from 'src/workspace/workspace-syn
 })
 export class CalendarEventObjectMetadata extends BaseObjectMetadata {
   @FieldMetadata({
+    standardId: calendarEventStandardFieldIds.title,
     type: FieldMetadataType.TEXT,
     label: 'Title',
     description: 'Title',
@@ -33,6 +37,7 @@ export class CalendarEventObjectMetadata extends BaseObjectMetadata {
   title: string;
 
   @FieldMetadata({
+    standardId: calendarEventStandardFieldIds.isCanceled,
     type: FieldMetadataType.BOOLEAN,
     label: 'Is canceled',
     description: 'Is canceled',
@@ -41,6 +46,7 @@ export class CalendarEventObjectMetadata extends BaseObjectMetadata {
   isCanceled: boolean;
 
   @FieldMetadata({
+    standardId: calendarEventStandardFieldIds.isFullDay,
     type: FieldMetadataType.BOOLEAN,
     label: 'Is Full Day',
     description: 'Is Full Day',
@@ -49,6 +55,7 @@ export class CalendarEventObjectMetadata extends BaseObjectMetadata {
   isFullDay: boolean;
 
   @FieldMetadata({
+    standardId: calendarEventStandardFieldIds.startsAt,
     type: FieldMetadataType.DATE_TIME,
     label: 'Start DateTime',
     description: 'Start DateTime',
@@ -57,6 +64,7 @@ export class CalendarEventObjectMetadata extends BaseObjectMetadata {
   startsAt: string;
 
   @FieldMetadata({
+    standardId: calendarEventStandardFieldIds.endsAt,
     type: FieldMetadataType.DATE_TIME,
     label: 'End DateTime',
     description: 'End DateTime',
@@ -65,6 +73,7 @@ export class CalendarEventObjectMetadata extends BaseObjectMetadata {
   endsAt: string;
 
   @FieldMetadata({
+    standardId: calendarEventStandardFieldIds.externalCreatedAt,
     type: FieldMetadataType.DATE_TIME,
     label: 'Creation DateTime',
     description: 'Creation DateTime',
@@ -73,6 +82,7 @@ export class CalendarEventObjectMetadata extends BaseObjectMetadata {
   externalCreatedAt: string;
 
   @FieldMetadata({
+    standardId: calendarEventStandardFieldIds.externalUpdatedAt,
     type: FieldMetadataType.DATE_TIME,
     label: 'Update DateTime',
     description: 'Update DateTime',
@@ -81,6 +91,7 @@ export class CalendarEventObjectMetadata extends BaseObjectMetadata {
   externalUpdatedAt: string;
 
   @FieldMetadata({
+    standardId: calendarEventStandardFieldIds.description,
     type: FieldMetadataType.TEXT,
     label: 'Description',
     description: 'Description',
@@ -89,6 +100,7 @@ export class CalendarEventObjectMetadata extends BaseObjectMetadata {
   description: string;
 
   @FieldMetadata({
+    standardId: calendarEventStandardFieldIds.location,
     type: FieldMetadataType.TEXT,
     label: 'Location',
     description: 'Location',
@@ -97,6 +109,7 @@ export class CalendarEventObjectMetadata extends BaseObjectMetadata {
   location: string;
 
   @FieldMetadata({
+    standardId: calendarEventStandardFieldIds.iCalUID,
     type: FieldMetadataType.TEXT,
     label: 'iCal UID',
     description: 'iCal UID',
@@ -105,6 +118,7 @@ export class CalendarEventObjectMetadata extends BaseObjectMetadata {
   iCalUID: string;
 
   @FieldMetadata({
+    standardId: calendarEventStandardFieldIds.conferenceSolution,
     type: FieldMetadataType.TEXT,
     label: 'Conference Solution',
     description: 'Conference Solution',
@@ -113,6 +127,7 @@ export class CalendarEventObjectMetadata extends BaseObjectMetadata {
   conferenceSolution: string;
 
   @FieldMetadata({
+    standardId: calendarEventStandardFieldIds.conferenceUri,
     type: FieldMetadataType.TEXT,
     label: 'Conference URI',
     description: 'Conference URI',
@@ -121,6 +136,7 @@ export class CalendarEventObjectMetadata extends BaseObjectMetadata {
   conferenceUri: string;
 
   @FieldMetadata({
+    standardId: calendarEventStandardFieldIds.recurringEventExternalId,
     type: FieldMetadataType.TEXT,
     label: 'Recurring Event ID',
     description: 'Recurring Event ID',
@@ -129,6 +145,7 @@ export class CalendarEventObjectMetadata extends BaseObjectMetadata {
   recurringEventExternalId: string;
 
   @FieldMetadata({
+    standardId: calendarEventStandardFieldIds.eventAttendees,
     type: FieldMetadataType.RELATION,
     label: 'Event Attendees',
     description: 'Event Attendees',

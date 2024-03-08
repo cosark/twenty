@@ -7,13 +7,17 @@
  * @returns A map of object metadata, with nameSingular as the key and the object as the value.
  */
 export const mapObjectMetadataByUniqueIdentifier = <
-  T extends { nameSingular: string },
+  T extends { standardId: string | null },
 >(
   arr: T[],
 ): Record<string, T> => {
   return arr.reduce(
     (acc, curr) => {
-      acc[curr.nameSingular] = {
+      if (!curr.standardId) {
+        return acc;
+      }
+
+      acc[curr.standardId] = {
         ...curr,
       };
 
